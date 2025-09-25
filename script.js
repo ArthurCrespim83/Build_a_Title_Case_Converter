@@ -1,0 +1,37 @@
+/**
+ * Converte uma string para o formato "Title Case" (Título/Nome Próprio).
+ * A função capitaliza a primeira letra de cada palavra e garante que
+ * o restante das letras em cada palavra seja minúscula.
+ * * @param {string} str O texto de entrada para formatação.
+ * @returns {string} O texto formatado em title case.
+ */
+function titleCase(str) {
+  // 1. Normaliza e Divide: Converte tudo para minúsculas e divide a string em um array de palavras.
+  return (
+    str
+      .toLowerCase()
+      .split(" ")
+      // 2. Mapeia e Capitaliza: Itera sobre cada palavra.
+      .map((word) => {
+        // **CRÍTICO**: Trata strings vazias (ex: resultado de múltiplos espaços)
+        // para evitar erros e preservar a estrutura de espaçamento.
+        if (word.length === 0) {
+          return "";
+        }
+
+        // Capitaliza a primeira letra (charAt(0)) e junta com o resto da palavra (slice(1)).
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      })
+      // 3. Junta: Combina as palavras de volta em uma única string, separadas por espaços.
+      .join(" ")
+  );
+}
+
+// --- Exemplos de Teste (Comprovando os Requisitos) ---
+
+console.log(titleCase("I like to code")); // Requisito 3: "I Like To Code"
+console.log(titleCase("javaScript is fun")); // Requisito 4: "Javascript Is Fun"
+console.log(titleCase("I'm a little tea pot")); // Requisito 5: "I'm A Little Tea Pot"
+console.log(titleCase("sHoRt AnD sToUt")); // Requisito 6 (parcial): "Short And Stout"
+console.log(titleCase("HERE IS MY HANDLE HERE IS MY SPOUT")); // Requisito 6 (final): "Here Is My Handle Here Is My Spout"
+console.log(titleCase("  teste  com   multiplos espaços  ")); // Teste de Robustez: "  Teste  Com   Multiplos Espaços  "
